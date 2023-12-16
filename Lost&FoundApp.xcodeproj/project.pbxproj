@@ -18,6 +18,11 @@
 		403798542B2DB8AF0061CD8E /* LFMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403798532B2DB8AF0061CD8E /* LFMainViewController.swift */; };
 		403798562B2DB8E90061CD8E /* LFCreateAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403798552B2DB8E90061CD8E /* LFCreateAdViewController.swift */; };
 		403798582B2DB9040061CD8E /* LFUserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403798572B2DB9040061CD8E /* LFUserProfileViewController.swift */; };
+		4037985A2B2DE7AD0061CD8E /* LFMainListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403798592B2DE7AD0061CD8E /* LFMainListView.swift */; };
+		4037985C2B2DEBDD0061CD8E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4037985B2B2DEBDD0061CD8E /* Extensions.swift */; };
+		4037985E2B2E0EEE0061CD8E /* LFMainListViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4037985D2B2E0EEE0061CD8E /* LFMainListViewViewModel.swift */; };
+		403798602B2E1D010061CD8E /* LFMainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4037985F2B2E1D010061CD8E /* LFMainCollectionViewCell.swift */; };
+		403798622B2E1EC20061CD8E /* LFMainCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403798612B2E1EC20061CD8E /* LFMainCollectionViewCellViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +39,11 @@
 		403798532B2DB8AF0061CD8E /* LFMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFMainViewController.swift; sourceTree = "<group>"; };
 		403798552B2DB8E90061CD8E /* LFCreateAdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFCreateAdViewController.swift; sourceTree = "<group>"; };
 		403798572B2DB9040061CD8E /* LFUserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFUserProfileViewController.swift; sourceTree = "<group>"; };
+		403798592B2DE7AD0061CD8E /* LFMainListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFMainListView.swift; sourceTree = "<group>"; };
+		4037985B2B2DEBDD0061CD8E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		4037985D2B2E0EEE0061CD8E /* LFMainListViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFMainListViewViewModel.swift; sourceTree = "<group>"; };
+		4037985F2B2E1D010061CD8E /* LFMainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFMainCollectionViewCell.swift; sourceTree = "<group>"; };
+		403798612B2E1EC20061CD8E /* LFMainCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFMainCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +109,8 @@
 		403798472B2DB5A20061CD8E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				403798592B2DE7AD0061CD8E /* LFMainListView.swift */,
+				4037985F2B2E1D010061CD8E /* LFMainCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -106,6 +118,8 @@
 		403798482B2DB5A90061CD8E /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				4037985D2B2E0EEE0061CD8E /* LFMainListViewViewModel.swift */,
+				403798612B2E1EC20061CD8E /* LFMainCollectionViewCellViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -131,6 +145,7 @@
 				403798332B2DAE3E0061CD8E /* SceneDelegate.swift */,
 				4037983A2B2DAE400061CD8E /* Assets.xcassets */,
 				4037983C2B2DAE400061CD8E /* LaunchScreen.storyboard */,
+				4037985B2B2DEBDD0061CD8E /* Extensions.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -218,12 +233,17 @@
 			files = (
 				403798362B2DAE3E0061CD8E /* LFTabViewController.swift in Sources */,
 				403798322B2DAE3E0061CD8E /* AppDelegate.swift in Sources */,
+				4037985E2B2E0EEE0061CD8E /* LFMainListViewViewModel.swift in Sources */,
 				4037984D2B2DB67A0061CD8E /* LFMain.swift in Sources */,
 				403798562B2DB8E90061CD8E /* LFCreateAdViewController.swift in Sources */,
 				403798512B2DB7870061CD8E /* LFUserProfile.swift in Sources */,
+				4037985A2B2DE7AD0061CD8E /* LFMainListView.swift in Sources */,
 				403798542B2DB8AF0061CD8E /* LFMainViewController.swift in Sources */,
 				4037984F2B2DB76D0061CD8E /* LFCreateAd.swift in Sources */,
 				403798342B2DAE3E0061CD8E /* SceneDelegate.swift in Sources */,
+				403798602B2E1D010061CD8E /* LFMainCollectionViewCell.swift in Sources */,
+				4037985C2B2DEBDD0061CD8E /* Extensions.swift in Sources */,
+				403798622B2E1EC20061CD8E /* LFMainCollectionViewCellViewModel.swift in Sources */,
 				403798582B2DB9040061CD8E /* LFUserProfileViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
