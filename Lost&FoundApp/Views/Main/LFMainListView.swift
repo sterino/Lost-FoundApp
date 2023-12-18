@@ -24,6 +24,7 @@ final class LFMainListView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isHidden = true
         collectionView.alpha = 0
+        collectionView.backgroundColor = .clear
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(LFMainCollectionViewCell.self,
                                 forCellWithReuseIdentifier: LFMainCollectionViewCell.cellIndentifier)
@@ -33,9 +34,12 @@ final class LFMainListView: UIView {
     override init(frame: CGRect){
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
+        
         addSubviews(collectionView, spinner)
         addConstraints()
+       
         spinner.startAnimating()
+        
         setUpCollectionView()
         
     }
@@ -46,6 +50,7 @@ final class LFMainListView: UIView {
     
     private func addConstraints(){
         NSLayoutConstraint.activate([
+            
             spinner.widthAnchor.constraint(equalToConstant: 100),
             spinner.heightAnchor.constraint(equalToConstant: 100),
             spinner.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -72,8 +77,6 @@ final class LFMainListView: UIView {
             
         })
         }
-    
-      
     }
    
 

@@ -8,9 +8,9 @@
 import UIKit
 
 final class LFMainViewController: UIViewController {
-
     private let mainListView = LFMainListView()
-    
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,6 +26,8 @@ final class LFMainViewController: UIViewController {
             mainListView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             mainListView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             mainListView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            
+
         ])
     }
 

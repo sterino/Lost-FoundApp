@@ -17,6 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let vc = LFTabViewController()
         let window = UIWindow(windowScene: windowScene)
+        //вот тут vc.frame
         
         window.rootViewController = vc
         window.makeKeyAndVisible()

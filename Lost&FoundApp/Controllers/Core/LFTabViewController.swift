@@ -11,14 +11,13 @@ final class LFTabViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
         setUpTabs()
     }
 
     private func setUpTabs(){
         let mainVC = LFMainViewController()
         let create_adVC = LFCreateAdViewController()
-        let user_profileVC = LFUserProfileViewController()
+        let user_profileVC = LFSigninViewController()
         
         mainVC.navigationItem.largeTitleDisplayMode = .automatic
         create_adVC.navigationItem.largeTitleDisplayMode = .automatic

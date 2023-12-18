@@ -11,7 +11,7 @@ final class LFCreateAdViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         
         view.backgroundColor = .systemBackground
         title = "Создать"
