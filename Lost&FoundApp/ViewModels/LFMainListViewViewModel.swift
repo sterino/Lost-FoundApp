@@ -20,7 +20,7 @@ extension LFMainListViewViewModel : UICollectionViewDataSource, UICollectionView
             for: indexPath) as? LFMainCollectionViewCell else {
                 fatalError("Unsupported cell")
             }
-        let viewModel = LFMainCollectionViewCellViewModel(adName: "Шапка",
+        let viewModel = LFMainCollectionViewCellViewModel(adName: "Куртка",
                                                           adDate: "17.12.2023",
                                                           adImageUrl: nil)
         cell.configure(with: viewModel)

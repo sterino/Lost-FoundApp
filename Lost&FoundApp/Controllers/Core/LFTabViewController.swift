@@ -13,7 +13,7 @@ final class LFTabViewController: UITabBarController {
         super.viewDidLoad()
         setUpTabs()
     }
-
+    
     private func setUpTabs(){
         let mainVC = LFMainViewController()
         let create_adVC = LFCreateAdViewController()

@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+
+struct LFUserProfile: Codable {
+    let name: String
+    let email: String
+}
