@@ -1,5 +1,5 @@
 //
-//  LFMainCollectionViewCell.swift
+//  MainCollectionViewCell.swift
 //  Lost&FoundApp
 //
 //  Created by Aibatyr on 16.12.2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class LFMainCollectionViewCell: UICollectionViewCell {
+final class MainCollectionViewCell: UICollectionViewCell {
     static let cellIndentifier = "LFMainCollectionViewCell"
     
     private let imageView: UIImageView = {
@@ -73,7 +73,7 @@ final class LFMainCollectionViewCell: UICollectionViewCell {
         dateLabel.text = nil
     }
     
-    public func configure(with viewModel: LFMainCollectionViewCellViewModel){
+    public func configure(with viewModel: MainCollectionViewCellViewModel){
         nameLabel.text = viewModel.adName
         dateLabel.text = viewModel.adDate
     }

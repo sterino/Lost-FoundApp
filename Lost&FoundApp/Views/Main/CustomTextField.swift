@@ -1,5 +1,5 @@
 //
-//  LFCustomTextField.swift
+//  CustomTextField.swift
 //  Lost&FoundApp
 //
 //  Created by Aibatyr on 19.12.2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LFCustomTextField: UITextField {
+class CustomTextField: UITextField {
     
     enum CustomTextFieldType{
         case username

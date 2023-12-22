@@ -1,13 +1,13 @@
 //
-//  LFDatabaseManager.swift
+//  DatabaseManager.swift
 //  Lost&FoundApp
 //
 //  Created by Aibatyr on 19.12.2023.
 //
 import Foundation
 
-final class LFDatabaseManager {
-    static let shared = LFDatabaseManager()
+final class DatabaseManager {
+    static let shared = DatabaseManager()
 
     private let baseURL = "https://fastapi-xhpv.onrender.com/ads"
     private let accessTokenKey = "accessToken" // Key for UserDefaults
@@ -15,7 +15,6 @@ final class LFDatabaseManager {
     private init() {}
 
     public func createAd(type: Int, title: String, description: String, category: String) {
-        // Fetch access token from UserDefaults
         guard let accessToken = UserDefaults.standard.string(forKey: accessTokenKey) else {
             print("Access token not found in UserDefaults.")
             return
@@ -23,10 +22,10 @@ final class LFDatabaseManager {
 
         // Prepare request data
         let requestData: [String: Any] = [
-            "type": 1,
-            "title": "YourTitle",
-            "description": "YourDescription",
-            "category": "YourCategory"
+            "type": type,
+            "title": title,
+            "description": description,
+            "category": category
         ]
 
         // Convert request data to JSON
@@ -40,6 +39,7 @@ final class LFDatabaseManager {
             print("Invalid URL.")
             return
         }
+
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -64,6 +64,8 @@ final class LFDatabaseManager {
         }
 
         task.resume()
+        
+        
     }
 
 

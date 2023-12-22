@@ -1,5 +1,5 @@
 //
-//  LFAdDetailViewController.swift
+//  AdDetailViewController.swift
 //  Lost&FoundApp
 //
 //  Created by Aibatyr on 18.12.2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LFAdDetailViewController: UIViewController {
+class AdDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

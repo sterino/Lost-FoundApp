@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct LFUserProfile: Codable {
+struct LFUser: Codable {
     let name: String
     let email: String
 }

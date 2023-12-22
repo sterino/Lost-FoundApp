@@ -1,5 +1,5 @@
 //
-//  LFCustomButton.swift
+//  CustomButton.swift
 //  Lost&FoundApp
 //
 //  Created by Aibatyr on 19.12.2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LFCustomButton: UIButton {
+class CustomButton: UIButton {
 
     enum FontSize {
         case big

@@ -1,5 +1,5 @@
 //
-//  LFSignupViewController.swift
+//  SignUpViewController.swift
 //  Lost&FoundApp
 //
 //  Created by Aibatyr on 18.12.2023.
@@ -7,16 +7,15 @@
 
 import UIKit
 
-class LFSignupViewController: UIViewController {
+class SignUpViewController: UIViewController {
     
-    private let headerView = LFSigninHeaderView(title: "Регистрация", subTitle: "Создайте свой аккаунт")
+    private let headerView = SigninHeaderView(title: "Регистрация", subTitle: "Создайте свой аккаунт")
     
-    private let usernameField = LFCustomTextField(fieldType: .username)
-    private let emailField = LFCustomTextField(fieldType: .email)
-    private let passwordField = LFCustomTextField(fieldType: .password)
+    private let emailField = CustomTextField(fieldType: .email)
+    private let passwordField = CustomTextField(fieldType: .password)
     
-    private let signUpButton = LFCustomButton(title: "Создать аккаунт", hasBackground: true, fontSize: .big)
-    private let signInButton = LFCustomButton(title: "У вас уже есть аккаунт? Войти", fontSize: .med)
+    private let signUpButton = CustomButton(title: "Создать аккаунт", hasBackground: true, fontSize: .big)
+    private let signInButton = CustomButton(title: "У вас уже есть аккаунт? Войти", fontSize: .med)
 
     
     override func viewDidLoad() {
@@ -38,7 +37,6 @@ class LFSignupViewController: UIViewController {
     
     private func setupUI() {
         self.view.addSubview(headerView)
-        self.view.addSubview(usernameField)
         self.view.addSubview(emailField)
         self.view.addSubview(passwordField)
         self.view.addSubview(signUpButton)
@@ -46,7 +44,6 @@ class LFSignupViewController: UIViewController {
 
 
         headerView.translatesAutoresizingMaskIntoConstraints = false
-        usernameField.translatesAutoresizingMaskIntoConstraints = false
         emailField.translatesAutoresizingMaskIntoConstraints = false
         passwordField.translatesAutoresizingMaskIntoConstraints = false
         
@@ -55,18 +52,13 @@ class LFSignupViewController: UIViewController {
        
         
         NSLayoutConstraint.activate([
-            self.headerView.topAnchor.constraint(equalTo: self.view.layoutMarginsGuide.topAnchor, constant: -50),
+            self.headerView.topAnchor.constraint(equalTo: self.view.layoutMarginsGuide.topAnchor, constant: 30),
             self.headerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.headerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            self.headerView.heightAnchor.constraint(equalToConstant: 222),
+            self.headerView.heightAnchor.constraint(equalToConstant: 180),
             
-            self.usernameField.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 60),
-            self.usernameField.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
-            self.usernameField.heightAnchor.constraint(equalToConstant: 55),
-            self.usernameField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.85),
-            
-            self.emailField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: 22),
-            self.emailField.centerXAnchor.constraint(equalTo: usernameField.centerXAnchor),
+            self.emailField.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 60),
+            self.emailField.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
             self.emailField.heightAnchor.constraint(equalToConstant: 55),
             self.emailField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.85),
             
@@ -90,8 +82,7 @@ class LFSignupViewController: UIViewController {
     }
     
     @objc private func didTapSignUp() {
-        guard let name = usernameField.text, !name.isEmpty,
-              let email = emailField.text, !email.isEmpty,
+        guard let email = emailField.text, !email.isEmpty,
               let password = passwordField.text, !password.isEmpty else {
                   return
               }
@@ -105,7 +96,8 @@ class LFSignupViewController: UIViewController {
     }
     
     @objc private func didTapSignIn() {
-        self.navigationController?.popToRootViewController(animated: true)
+//        self.navigationController?.popToRootViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
 

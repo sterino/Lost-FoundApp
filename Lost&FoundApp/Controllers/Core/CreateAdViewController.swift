@@ -1,5 +1,5 @@
 //
-//  LFCreateAdViewController.swift
+//  CreateAdViewController.swift
 //  Lost&FoundApp
 //
 //  Created by Aibatyr on 16.12.2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class LFCreateAdViewController: UIViewController {
+final class CreateAdViewController: UIViewController {
     
     private let headerImageView: UIImageView = {
         let imageView = UIImageView()
@@ -39,6 +39,9 @@ final class LFCreateAdViewController: UIViewController {
     
     private let textView: UITextView = {
         let textView =  UITextView()
+        textView.layer.cornerRadius = 10
+        textView.layer.borderWidth = 2
+        textView.layer.borderColor = UIColor.secondarySystemFill.cgColor
         textView.backgroundColor = .secondarySystemBackground
         textView.isEditable = true
         textView.font = .systemFont(ofSize: 28)
@@ -47,7 +50,7 @@ final class LFCreateAdViewController: UIViewController {
     
     private var selectedHeaderImage: UIImage?
     
-    private let createAd = LFCustomButton(title: "Создать", hasBackground: true, fontSize: .big)
+    private let createAd = CustomButton(title: "Создать", hasBackground: true, fontSize: .big)
     
     
     override func viewDidLoad() {
@@ -100,6 +103,11 @@ final class LFCreateAdViewController: UIViewController {
             self.titleField.heightAnchor.constraint(equalToConstant: 55),
             self.titleField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.92),
             
+            self.titleField.topAnchor.constraint(equalTo: headerImageView.bottomAnchor, constant: 60),
+            self.titleField.centerXAnchor.constraint(equalTo: headerImageView.centerXAnchor),
+            self.titleField.heightAnchor.constraint(equalToConstant: 55),
+            self.titleField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.92),
+            
             self.createAd.topAnchor.constraint(equalTo: titleField.bottomAnchor, constant: 44 ),
             self.createAd.centerXAnchor.constraint(equalTo: titleField.centerXAnchor),
             self.createAd.heightAnchor.constraint(equalToConstant: 55),
@@ -116,12 +124,12 @@ final class LFCreateAdViewController: UIViewController {
                     return
                 }
         
-        LFDatabaseManager.shared.createAd(type: 0, title: title, description: "DSD", category: "ada")
+        DatabaseManager.shared.createAd(type: 0, title: title, description: body, category: "ada")
             }
         
 }
 
-extension LFCreateAdViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension CreateAdViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }

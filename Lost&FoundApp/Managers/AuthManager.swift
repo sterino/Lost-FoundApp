@@ -1,9 +1,9 @@
-////
-////  LFAuthManager.swift
-////  Lost&FoundApp
-////
-////  Created by Aibatyr on 19.12.2023.
-////
+//
+//  AuthManager.swift
+//  Lost&FoundApp
+//
+//  Created by Aibatyr on 19.12.2023.
+//
 
 import Foundation
 
@@ -57,28 +57,7 @@ final class AuthManager {
     }
     
     func signOut(completion: @escaping (Result<Void, Error>) -> Void) {
-        let logoutURL = URL(string: "https://stay.com/api/auth/users/tokens")!
-        var request = URLRequest(url: logoutURL)
-        request.httpMethod = "DELETE"
-     
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-     
-            // Check the HTTP status code to determine the success of the logout operation
-            if let httpResponse = response as? HTTPURLResponse,
-               (200..<300).contains(httpResponse.statusCode) {
-                UserDefaults.standard.removeObject(forKey: "access_token")
-                completion(.success(()))
-            } else {
-                // Handle non-success status code, e.g., log out failed
-                completion(.failure(NSError(domain: "LogoutFailed", code: 0, userInfo: nil)))
-            }
-        }
-     
-        task.resume()
+        UserDefaults.standard.removeObject(forKey: "access_token")
     }
     
     func signUp(name: String, username: String, password: String, completion: @escaping (Result<String, Error>) -> Void){
