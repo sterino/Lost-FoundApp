@@ -19,16 +19,16 @@ class SigninViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = .systemBackground
-        navigationController?.navigationBar.topItem?.title = "Назад"
         setupUI()
         
         self.signInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
         self.newUserButton.addTarget(self, action: #selector(didTapNewUser), for: .touchUpInside)
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     private func setupUI() {
@@ -83,23 +83,34 @@ class SigninViewController: UIViewController {
             // Вместо return можно добавить код обработки ошибки, если нужно
             return
         }
-        UIApplication.shared.keyWindow?.rootViewController = TabViewController()
-//        navigationController?.viewControllers = [TabViewController()]
-//        spinner.startAnimating()
-//        AuthManager.shared.signIn(username: email, password: password) { [weak self] result in
-//            DispatchQueue.main.async {
-//                switch result {
-//                case .success:
 //
-//                    self?.spinner.stopAnimating()
-////                    self?.navigationController?.pushViewController(vc, animated: true)
-//                    self?.navigationController?.viewControllers = [TabViewController()]
-//                case .failure(let error):
-//                    // Обработка ошибки, например, показать пользователю сообщение об ошибке
-//                    print("Sign in error: \(error.localizedDescription)")
-//                }
-//            }
-//        }
+//        navigationController?.viewControllers = [TabViewController()]
+        spinner.startAnimating()
+        AuthManager.shared.signIn(username: email, password: password) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    
+                    self?.spinner.stopAnimating()
+                    self?.usernameField.layer.borderWidth = 0
+                    self?.usernameField.layer.borderColor = UIColor.secondarySystemFill.cgColor
+                    self?.passwordField.layer.borderWidth = 0
+                    self?.passwordField.layer.borderColor = UIColor.secondarySystemFill.cgColor
+                    
+                    if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate, let tabBarController = sceneDelegate.window?.rootViewController as? TabViewController {
+                        tabBarController.setUpTabs(state: AuthorizedState())
+                    }
+                case .failure(let error):
+                    self?.spinner.stopAnimating()
+                    self?.usernameField.layer.borderWidth = 2
+                    self?.usernameField.layer.borderColor = UIColor.systemRed.cgColor
+                    self?.passwordField.layer.borderWidth = 2
+                    self?.passwordField.layer.borderColor = UIColor.systemRed.cgColor
+                    // Обработка ошибки, например, показать пользователю сообщение об ошибке
+                    print("Sign in error: \(error.localizedDescription)")
+                }
+            }
+        }
     }
     
     @objc private func didTapNewUser() {

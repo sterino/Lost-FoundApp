@@ -11,7 +11,7 @@ final class MainCollectionViewCellViewModel {
     
     public let adName: String?
     public let adDate: String?
-    private let adImageUrl: URL?
+    public let adImageUrl: URL?
     init(
         adName: String,
         adDate: String,

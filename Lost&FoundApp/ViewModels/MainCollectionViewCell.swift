@@ -35,13 +35,17 @@ final class MainCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         contentView.backgroundColor = .secondarySystemBackground
         contentView.addSubviews(imageView, nameLabel, dateLabel)
+        setupUI()
         addConstraints()
+        
     }
     
     required init?(coder: NSCoder) {
         fatalError("Unsupported")
+        
     }
     
     private func addConstraints() {
@@ -61,7 +65,9 @@ final class MainCollectionViewCell: UICollectionViewCell {
             imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             imageView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
             imageView.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: -3),
+            
         ])
+
     }
     
     
@@ -74,7 +80,27 @@ final class MainCollectionViewCell: UICollectionViewCell {
     }
     
     public func configure(with viewModel: MainCollectionViewCellViewModel){
+        if let imageURL = viewModel.adImageUrl {
+            URLSession.shared.dataTask(with: imageURL) { data, response, error in
+                if let data = data {
+                    DispatchQueue.main.async {
+                        // Setting the image in UIImageView
+                        self.imageView.image = UIImage(data: data)
+                    }
+                }
+            }.resume()
+        } else {
+            self.imageView.image = UIImage(named: "placeholder.png")
+        }
         nameLabel.text = viewModel.adName
         dateLabel.text = viewModel.adDate
     }
+    func setupUI() {
+
+                layer.masksToBounds = false
+                layer.shadowColor = UIColor.black.cgColor
+                layer.shadowOpacity = 0.3
+                layer.shadowOffset = CGSize(width: 0, height: 4)
+                layer.shadowRadius = 6
+       }
 }

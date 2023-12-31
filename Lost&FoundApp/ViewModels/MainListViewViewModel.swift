@@ -12,7 +12,7 @@ final class MainListViewViewModel: NSObject {
     private let baseURL = "https://fastapi-xhpv.onrender.com"
 
     func fetchCharacters(completion: @escaping (Int?, [Ads]?) -> Void) {
-        let url = URL(string: "https://fastapi-xhpv.onrender.com/ads")!
+        let url = URL(string: "https://fastapi-xhpv.onrender.com/ads/")!
 
         var request = URLRequest(url: url)
         request.httpMethod = "GET"

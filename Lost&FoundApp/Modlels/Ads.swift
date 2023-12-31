@@ -31,7 +31,7 @@ struct Ads: Codable {
         case media
     }
     
-    init(id: String = "", type: Int = 0, title: String = "", description: String = "", media: String = "") {
+    init(id: String = "", type: Int, title: String = "", description: String = "", media: String = "") {
         self.id = id
         self.type = type
         self.title = title

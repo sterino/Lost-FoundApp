@@ -7,21 +7,28 @@
 
 import UIKit
 
+protocol MainListViewDelegate {
+    func didSelectAdCell(model: MainCollectionViewCellViewModel)
+}
+
 final class MainListView: UIView {
-    
+    var delegate: MainListViewDelegate?
     let viewModel = MainListViewViewModel()
-    
-    var adsList = [Ads()]
-    
-    
-    var totals = 0
-    
+    private let refreshControl = UIRefreshControl()
+    var adsList = [Ads]()
+    var filteredList = [Ads]()
+    var segmentType = 1
+   
+//    var findList = [Ads()]
+//    var lostList = [Ads()]
+        
     private let spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView(style: .large)
         spinner.hidesWhenStopped = true
         spinner.translatesAutoresizingMaskIntoConstraints = false
         return spinner
     }()
+    
     
     private let collectionView: UICollectionView = {
         let layout  = UICollectionViewFlowLayout()
@@ -41,16 +48,15 @@ final class MainListView: UIView {
         
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
-        
+       
         addSubviews(collectionView, spinner)
         addConstraints()
         
         spinner.startAnimating()
-        viewModel.fetchCharacters { total, ads in
-            if let total = total, let ads = ads {
-                self.adsList = ads
-                self.totals = total
-                print(self.totals)
+        viewModel.fetchCharacters { _, ads in
+            if let ads = ads {
+                self.adsList = ads.reversed()
+                self.configureList()
                 DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
                     self.collectionView.reloadData()
                     }
@@ -62,7 +68,7 @@ final class MainListView: UIView {
         }
         
         setUpCollectionView()
-        
+        setUpRefreshControl()
         
         
     }
@@ -71,18 +77,40 @@ final class MainListView: UIView {
         fatalError("Unsupported")
     }
     
+    public func update() {
+        updateData()
+    }
+    
+    func updateData() {
+           spinner.startAnimating()
+           viewModel.fetchCharacters { total, ads in
+               if let total = total, let ads = ads {
+                   self.adsList = ads.reversed()
+                   self.configureList()
+                   DispatchQueue.main.async {
+                       self.collectionView.reloadData()
+                       self.spinner.stopAnimating()
+                   }
+               } else {
+                   print("Failed to fetch data")
+               }
+           }
+       }
+    
     private func addConstraints(){
         NSLayoutConstraint.activate([
+            
+        
+            
+            collectionView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            collectionView.leftAnchor.constraint(equalTo: leftAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            collectionView.rightAnchor.constraint(equalTo: rightAnchor),
             
             spinner.widthAnchor.constraint(equalToConstant: 100),
             spinner.heightAnchor.constraint(equalToConstant: 100),
             spinner.centerXAnchor.constraint(equalTo: centerXAnchor),
             spinner.centerYAnchor.constraint(equalTo: centerYAnchor),
-            
-            collectionView.topAnchor.constraint(equalTo: topAnchor),
-            collectionView.leftAnchor.constraint(equalTo: leftAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            collectionView.rightAnchor.constraint(equalTo: rightAnchor),
         ])
     }
     private func setUpCollectionView(){
@@ -99,7 +127,15 @@ final class MainListView: UIView {
             }
             
         })
+        collectionView.refreshControl = refreshControl
     }
+    private func setUpRefreshControl() {
+            refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        }
+    @objc private func refreshData() {
+            updateData()
+            refreshControl.endRefreshing()
+        }
 }
 
 extension MainListView : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -111,18 +147,16 @@ extension MainListView : UICollectionViewDataSource, UICollectionViewDelegate, U
             for: indexPath) as? MainCollectionViewCell else {
                 fatalError("Unsupported cell")
             }
-        
-        let viewModel = MainCollectionViewCellViewModel(adName: self.adsList[indexPath.row].title ?? "",
-                                                        adDate: self.adsList[indexPath.row].id ?? "",
-                                                        adImageUrl: URL(string: self.adsList[indexPath.row].media ?? ""))
+        let viewModel = MainCollectionViewCellViewModel(adName: self.filteredList[indexPath.row].title ?? "",
+                                                        adDate: self.filteredList[indexPath.row].description ?? "",
+                                                        adImageUrl: URL(string: self.filteredList[indexPath.row].media ?? ""))
 
         cell.configure(with: viewModel)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(totals)
-        return self.totals
+        return filteredList.count
         
         
     }
@@ -136,7 +170,23 @@ extension MainListView : UICollectionViewDataSource, UICollectionViewDelegate, U
         )
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let viewModel = MainCollectionViewCellViewModel(adName: self.filteredList[indexPath.row].title ?? "",
+                                                        adDate: self.filteredList[indexPath.row].description ?? "",
+                                                        adImageUrl: URL(string: self.filteredList[indexPath.row].media ?? ""))
+        delegate?.didSelectAdCell(model: viewModel)
+    }
+    
+    private func configureList() {
+        filteredList = adsList.filter { $0.type == segmentType }
+    }
 }
 
 
-
+extension MainListView: SegmentedControlDelegate {
+    func segmentedControlValueChanged(index: Int) {
+        segmentType = index + 1
+        configureList()
+        collectionView.reloadData()
+    }
+}

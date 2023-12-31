@@ -9,6 +9,8 @@ import Foundation
 
 final class AuthManager {
     static let shared = AuthManager()
+    
+    let facade: NetworkFacade = NetworkFacade()
 
     private let baseURL = "https://fastapi-xhpv.onrender.com"
     
@@ -23,37 +25,7 @@ final class AuthManager {
     private init() {}
 
     func signIn(username: String, password: String, completion: @escaping (Result<String, Error>) -> Void) {
-        guard !username.trimmingCharacters(in: .whitespaces).isEmpty,
-              !password.trimmingCharacters(in: .whitespaces).isEmpty,
-              password.count >= 6 else{
-            completion(.failure(NSError(domain: "Invalidadsa", code: 0)))
-            return
-        }
-        
-        let url = URL(string: "\(baseURL)/auth/users/tokens")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        
-        let body = "username=\(username)&password=\(password)"
-        request.httpBody = body.data(using: .utf8)
-        
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            
-            if let data = data,
-               let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-               let accessToken = json["access_token"] as? String {
-                print(accessToken)
-                UserDefaults.standard.set(accessToken, forKey: "access_token")
-                completion(.success(accessToken))
-            } else {
-                completion(.failure(NSError(domain: "InvalidResponse", code: 0)))
-            }
-        }
-        task.resume()
+        facade.signIn(username: username, password: password, completion: completion)
     }
     
     func signOut(completion: @escaping (Result<Void, Error>) -> Void) {
@@ -61,8 +33,6 @@ final class AuthManager {
     }
     
     func signUp(name: String, username: String, password: String, completion: @escaping (Result<String, Error>) -> Void){
-        let url = "\(baseURL)/auth/users"
-        
         
     }
 }

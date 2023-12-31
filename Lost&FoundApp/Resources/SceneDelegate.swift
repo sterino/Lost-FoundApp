@@ -15,16 +15,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        let vc: UIViewController
         let window = UIWindow(windowScene: windowScene)
         //вот тут vc.frame
-//        UserDefaults.standard.removeObject(forKey: "access_token")
-        if let string = UserDefaults.standard.string(forKey: "access_token") {
-            vc = TabViewController()
-        } else {
-            let mainViewController = MainViewController(isSigned: false)
-            vc = UINavigationController(rootViewController: mainViewController)
-        }
+//      
+//        let vc: UIViewController
+//        if let string = UserDefaults.standard.string(forKey: "access_token") {
+//            vc = TabViewController()
+//        } else {
+//            let mainViewController = MainViewController(isSigned: false)
+//            vc = UINavigationController(rootViewController: mainViewController)
+//        }
         
         window.rootViewController = TabViewController()
         window.makeKeyAndVisible()

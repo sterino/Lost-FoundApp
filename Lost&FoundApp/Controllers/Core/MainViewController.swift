@@ -9,8 +9,10 @@ import UIKit
 
 final class MainViewController: UIViewController {
     private let mainListView = MainListView()
+    private let mainFilterView = MainFilterView()
     private let isSigned: Bool
-    
+    var selectedValue = 1
+ 
     init(isSigned: Bool) {
         self.isSigned = isSigned
         
@@ -23,14 +25,14 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .systemBackground
         
         if !isSigned {
             configureNavigationBar()
         }
-        
         setUpView()
+        mainFilterView.delegate = mainListView
+        mainListView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,6 +40,7 @@ final class MainViewController: UIViewController {
         
         title = "Объявления"
         navigationItem.title = "Объявления"
+        mainListView.updateData()
     }
     
     private func configureNavigationBar() {
@@ -50,14 +53,28 @@ final class MainViewController: UIViewController {
     }
     
     private func setUpView() {
+        view.addSubview(mainFilterView)
         view.addSubview(mainListView)
         NSLayoutConstraint.activate([
-            mainListView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            mainFilterView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -5),
+            mainFilterView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            mainFilterView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            mainFilterView.heightAnchor.constraint(equalToConstant: 200),
+            
+            mainListView.topAnchor.constraint(equalTo: mainFilterView.bottomAnchor),
             mainListView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             mainListView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             mainListView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
         ])
     }
     
-    
+
+
+}
+
+extension MainViewController: MainListViewDelegate {
+    func didSelectAdCell(model: MainCollectionViewCellViewModel) {
+        let vc = AdDetailedViewController(model: model)
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }

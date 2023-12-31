@@ -1,32 +1,15 @@
-//
-//  StorageManager.swift
-//  Lost&FoundApp
-//
-//  Created by Aibatyr on 20.12.2023.
-//
+import Foundation
+import UIKit
 
-//import Foundation
-//
-//final class StorageManager {
-//    static let shared = StorageManager()
-//
-//    private let baseURL = ""
-//
-//    private init() {}
-//
-//    public func uploadAdsHeaderImage(
-//        ad: LFAds,
-//        image: UIImage?,
-//        comletion: @escaping (Bool) -> Void
-//    ){
-//
-//    }
-//
-//    public func downloadUrlForAdsHeader(
-//        ad: LFAds,
-//        completion: @escaping (URL?) -> Void
-//    ){
-//
-//    }
-//
-//}
+final class StorageManager {
+    static let shared = StorageManager()
+
+    let facade: NetworkFacade = NetworkFacade()
+    private let baseURL = "https://fastapi-xhpv.onrender.com/Ads/"
+
+    private init() {}
+
+    func uploadImage(image: UIImage?, adId: String) {
+        facade.uploadImage(image: image, adId: adId)
+    }
+}
